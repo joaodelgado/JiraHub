@@ -1,0 +1,31 @@
+{
+  "manifest_version": 2,
+  "name": " JiraHub",
+  "version": "0.1",
+  "background": {
+    "scripts": [
+      "background.js"
+    ]
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://github.com/*"
+      ],
+      "js": [
+        "third_party/jquery-3.2.1.min.js",
+        "third_party/arrive.min.js",
+        "config.js",
+        "transition.js",
+        "github.js",
+        "jira.js",
+        "client.js"
+      ]
+    }
+  ],
+  "permissions": [
+    "webRequest",
+    "webRequestBlocking",
+    "https://jira.jumia.com/"
+  ]
+}
