@@ -2,6 +2,7 @@ class Jira {
 
     constructor() {
         this.github = new GitHub();
+        this.store = new Store();
         this.transitions = [];
         this.ticket = undefined;
         this.reviewers = [];
@@ -14,7 +15,7 @@ class Jira {
             type: 'GET',
             url: Config.JIRA_BASE_URL + 'issue/' + this.ticket + '?fields=' + Config.JIRA_REVIWER_KEY,
             headers: {
-                "Authorization": "Basic " + btoa(Config.JIRA_USERNAME + ":" + Config.JIRA_PASSWORD)
+                "Authorization": "Basic " + btoa(this.store.getUsername() + ":" + this.store.getPassword())
             },
             error: () => alert('Error loading ticket'),
             context: this,
@@ -37,7 +38,6 @@ class Jira {
             error: () => alert('Error loading transitions'),
             context: this,
             success: data => {
-                console.log(data);
                 this.transitions = data['transitions']
                     .map(transition => new Transition({
                         id: transition['id'],
