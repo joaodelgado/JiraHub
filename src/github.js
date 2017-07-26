@@ -1,7 +1,16 @@
 class GitHub {
 
     ticket() {
-        return $(this.titleSelector()).text().trim().split(' ')[0];
+        const match = this.title().match(Config.GITHUB_TITLE_REGEX);
+        if (match) {
+            return match[1];
+        } else {
+            return null;
+        }
+    }
+
+    title() {
+        return $(this.titleSelector()).text().trim()
     }
 
     titleSelector() {
@@ -32,7 +41,7 @@ class GitHub {
     }
 
     isPullRequest() {
-        return !!this._pullRequestPath();
+        return !!this._pullRequestPath() && this.title().match(Config.GITHUB_TITLE_REGEX);
     }
 
     _pullRequestPath() {
