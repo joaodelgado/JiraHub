@@ -1,5 +1,5 @@
 class StoredItem {
-    constructor({ key, initial, obfuscate }) {
+    constructor({ key, initial, obfuscate = false }) {
         this.key = key;
         this.initial = initial;
         this.obfuscate = obfuscate;

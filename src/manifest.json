@@ -19,6 +19,7 @@
         "transition.js",
         "stored_item.js",
         "store.js",
+        "ticket.js",
         "github.js",
         "jira.js",
         "client.js"

@@ -9,19 +9,20 @@ class Jira {
     }
 
     loadTicket() {
-        this.ticket = this.github.ticket();
+        this.ticket = new Ticket({ id: this.github.ticket() });
         chrome.extension.sendRequest("deleteCookie");
         $.ajax({
             type: 'GET',
-            url: Config.JIRA_BASE_URL + 'issue/' + this.ticket + '?fields=' + Config.JIRA_REVIWER_KEY,
+            url: Config.JIRA_BASE_URL + Config.JIRA_API_BASE + 'issue/' + this.ticket.id + '?fields=status,' + Config.JIRA_REVIWER_KEY,
             headers: {
                 "Authorization": "Basic " + btoa(this.store.getUsername() + ":" + this.store.getPassword())
             },
             error: () => alert('Error loading ticket'),
             context: this,
             success: data => {
+                this.ticket.status = data.fields.status.name;
                 if (data.fields && data.fields[Config.JIRA_REVIWER_KEY]) {
-                    this.reviewers = data.fields[Config.JIRA_REVIWER_KEY].map(reviewer => reviewer.name);
+                    this.ticket.reviewers = data.fields[Config.JIRA_REVIWER_KEY].map(reviewer => reviewer.name);
                 }
                 this._loadTransitions();
             }
@@ -31,14 +32,14 @@ class Jira {
     _loadTransitions(data) {
         $.ajax({
             type: 'GET',
-            url: Config.JIRA_BASE_URL + 'issue/' + this.ticket + '/transitions',
+            url: Config.JIRA_BASE_URL + Config.JIRA_API_BASE + 'issue/' + this.ticket.id + '/transitions',
             headers: {
                 "Authorization": "Basic " + btoa(Config.JIRA_USERNAME + ":" + Config.JIRA_PASSWORD)
             },
             error: () => alert('Error loading transitions'),
             context: this,
             success: data => {
-                this.transitions = data['transitions']
+                this.ticket.transitions = data['transitions']
                     .map(transition => new Transition({
                         id: transition['id'],
                         name: transition["name"],
@@ -49,7 +50,7 @@ class Jira {
                         return transition
                     });
 
-                this.github.renderTransitions({ transitions: this.transitions });
+                this.github.renderTicket(this.ticket);
             }
         });
     }
@@ -69,7 +70,7 @@ class Jira {
 
             $.ajax({
                 type: 'POST',
-                url: Config.JIRA_BASE_URL + 'issue/' + context.ticket + '/transitions',
+                url: Config.JIRA_BASE_URL + Config.JIRA_API_BASE + 'issue/' + context.ticket.id + '/transitions',
                 headers: {
                     "Authorization": "Basic " + btoa(Config.JIRA_USERNAME + ":" + Config.JIRA_PASSWORD)
                 },

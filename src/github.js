@@ -17,7 +17,7 @@ class GitHub {
         return '.js-issue-title'
     }
 
-    renderTransitions({ transitions, jira }) {
+    renderTicket(ticket) {
         $('#jirahub-wrapper').remove();
 
         const wrapper = $(document.createElement('div'))
@@ -26,10 +26,18 @@ class GitHub {
 
         wrapper.insertAfter($('.sidebar-labels'));
 
-        transitions.forEach(transition => wrapper.append(this._renderTransition(transition, jira)));
+        const linkWrapper = $(document.createElement('div'))
+            .addClass('discussion-sidebar-heading text-bold');
+        const link = $(document.createElement('a'))
+            .attr({ href: Config.JIRA_BASE_URL + '/browse/' + ticket.id })
+            .text('Jira - ' + ticket.status);
+        linkWrapper.append(link);
+        wrapper.append(linkWrapper);
+
+        ticket.transitions.forEach(transition => wrapper.append(this._renderTransition(transition)));
     }
 
-    _renderTransition(transition, jira) {
+    _renderTransition(transition) {
         return $(document.createElement('button'))
             .attr({ id: 'jirahub-' + transition.id})
             .addClass('btn btn-sm')
