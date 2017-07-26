@@ -13,7 +13,7 @@ class Jira {
         chrome.extension.sendRequest("deleteCookie");
         $.ajax({
             type: 'GET',
-            url: Config.JIRA_BASE_URL + Config.JIRA_API_BASE + 'issue/' + this.ticket.id + '?fields=status,' + Config.JIRA_REVIWER_KEY,
+            url: this.store.getJiraUrl() + Config.JIRA_API_BASE + 'issue/' + this.ticket.id + '?fields=status,' + Config.JIRA_REVIWER_KEY,
             headers: {
                 "Authorization": "Basic " + btoa(this.store.getUsername() + ":" + this.store.getPassword())
             },
@@ -32,7 +32,7 @@ class Jira {
     _loadTransitions(data) {
         $.ajax({
             type: 'GET',
-            url: Config.JIRA_BASE_URL + Config.JIRA_API_BASE + 'issue/' + this.ticket.id + '/transitions',
+            url: this.store.getJiraUrl() + Config.JIRA_API_BASE + 'issue/' + this.ticket.id + '/transitions',
             headers: {
                 "Authorization": "Basic " + btoa(Config.JIRA_USERNAME + ":" + Config.JIRA_PASSWORD)
             },
@@ -70,7 +70,7 @@ class Jira {
 
             $.ajax({
                 type: 'POST',
-                url: Config.JIRA_BASE_URL + Config.JIRA_API_BASE + 'issue/' + context.ticket.id + '/transitions',
+                url: this.store.getJiraUrl() + Config.JIRA_API_BASE + 'issue/' + context.ticket.id + '/transitions',
                 headers: {
                     "Authorization": "Basic " + btoa(Config.JIRA_USERNAME + ":" + Config.JIRA_PASSWORD)
                 },

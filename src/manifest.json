@@ -29,6 +29,6 @@
   "permissions": [
     "webRequest",
     "webRequestBlocking",
-    "https://jira.jumia.com/"
+    "https://*/"
   ]
 }
