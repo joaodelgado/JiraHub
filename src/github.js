@@ -1,5 +1,9 @@
 class GitHub {
 
+    constructor() {
+        this.store = new Store();
+    }
+
     ticket() {
         const match = this.title().match(Config.GITHUB_TITLE_REGEX);
         if (match) {
@@ -29,7 +33,7 @@ class GitHub {
         const linkWrapper = $(document.createElement('div'))
             .addClass('discussion-sidebar-heading text-bold');
         const link = $(document.createElement('a'))
-            .attr({ href: Config.JIRA_BASE_URL + '/browse/' + ticket.id })
+            .attr({ href: this.store.getJiraUrl() + '/browse/' + ticket.id })
             .text('Jira - ' + ticket.status);
         linkWrapper.append(link);
         wrapper.append(linkWrapper);
