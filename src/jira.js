@@ -63,7 +63,7 @@ class Jira {
             if (transition.id === Config.JIRA_IN_REVIEW_TRANSITION_ID && context.reviewers.indexOf(Config.JIRA_USERNAME) === -1) {
                 data.fields = {};
                 data.fields[Config.JIRA_REVIWER_KEY] = context.reviewers.map(reviewer => { name: reviewer });
-                data.fields[Config.JIRA_REVIWER_KEY].push({name: Config.JIRA_USERNAME});
+                data.fields[Config.JIRA_REVIWER_KEY].push({name: this.store.getUsername()});
             }
 
             $.ajax({
