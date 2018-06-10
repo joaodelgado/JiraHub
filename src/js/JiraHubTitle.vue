@@ -8,7 +8,7 @@
             <icon-gear class="octicon" />
             JiraHub
         </button>
-        <config-modal/>
+        <config-modal ref="configModal"/>
     </div>
 
 </template>
@@ -18,13 +18,12 @@ import Vue from 'vue';
 
 import './icons/Gear.vue';
 import './ConfigModal.vue';
-import { EventBus, GlobalEvents } from './EventBus';
 
 export default Vue.component('jirahub-title', {
 
     methods: {
         openModal() {
-            EventBus.$emit(GlobalEvents.OPEN_MODAL);
+            this.$refs.configModal.open();
         },
     },
 
