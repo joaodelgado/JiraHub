@@ -2,7 +2,6 @@
 
     <modal
         ref="modal"
-        :on-open="focus"
         title="Jira credentials">
 
         <div class="jirahub-form">
@@ -40,7 +39,6 @@
 <script>
 import Vue from 'vue';
 
-import './icons/Cross.vue';
 import './Modal.vue';
 
 export default Vue.component('config-modal', {

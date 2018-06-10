@@ -1,6 +1,6 @@
 <template>
 
-    <div>
+    <div class="jirahub-section">
         <span v-if="!validConfig">
             Configure JiraHub
         </span>
@@ -16,7 +16,9 @@
                 class="text-bold">
                 {{ ticket.id + ' - ' + ticket.status }}
             </a>
+
             <transitions :ticket="ticket" />
+            <versions :versions="ticket.versions"/>
         </div>
     </div>
 
@@ -26,6 +28,7 @@
 
 import Vue from 'vue';
 
+import '../versions/Versions.vue';
 import './Transitions.vue';
 
 import Config from '../Config';
@@ -44,11 +47,13 @@ export default Vue.component('ticket', {
 
     created() {
         EventBus.$on(GlobalEvents.PERFORMED_TRANSITION, this.reload);
+        EventBus.$on(GlobalEvents.CHANGED_VERSIONS, this.reload);
         this.validConfig = validConfig(this.store);
     },
 
     beforeDestroy() {
         EventBus.$off(GlobalEvents.PERFORMED_TRANSITION, this.reload);
+        EventBus.$off(GlobalEvents.CHANGED_VERSIONS, this.reload);
     },
 
     asyncComputed: {
@@ -70,6 +75,7 @@ export default Vue.component('ticket', {
                             return {
                                 id: ticketId,
                                 status: data.fields.status.name,
+                                versions: data.fields.fixVersions,
                                 reviewers,
                             };
                         },

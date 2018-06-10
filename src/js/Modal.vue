@@ -3,7 +3,7 @@
     <div>
         <div
             :style="{ display: isOpen ? 'block' : 'none' }"
-            class="select-menu-modal-holder">
+            class="jirahub-modal select-menu-modal-holder">
 
             <div class="select-menu-modal">
 
@@ -38,10 +38,6 @@ export default Vue.component('modal', {
             type: String,
             default: '',
         },
-        onOpen: {
-            type: Function,
-            default: undefined,
-        },
     },
 
     data() {
@@ -54,9 +50,6 @@ export default Vue.component('modal', {
 
         open() {
             this.isOpen = true;
-            if (this.onOpen) {
-                this.onOpen();
-            }
         },
 
         close() {
@@ -78,6 +71,11 @@ export default Vue.component('modal', {
     display: block;
     width: 100vw;
     height: 100vh;
+}
+
+.jirahub-modal {
+    right: -1px;
+    left: auto;
 }
 
 </style>

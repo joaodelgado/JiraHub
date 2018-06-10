@@ -12,6 +12,16 @@ export default class GitHub {
         return null;
     }
 
+    project() {
+        const ticket = this.ticket();
+
+        if (ticket) {
+            return ticket.split('-')[0];
+        }
+
+        return null;
+    }
+
     title() {
         return document.querySelector(this.titleSelector()).textContent.trim();
     }

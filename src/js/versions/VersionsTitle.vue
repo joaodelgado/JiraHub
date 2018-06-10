@@ -6,27 +6,35 @@
             class="discussion-sidebar-heading discussion-sidebar-toggle"
             @click="openModal">
             <icon-gear class="octicon" />
-            JiraHub
+            Versions
         </button>
-        <config-modal ref="configModal"/>
+        <versions-modal
+            ref="versionsModal"
+            :applied-versions="versions" />
     </div>
 
 </template>
 
 <script>
+
 import Vue from 'vue';
 
-import './icons/Gear.vue';
-import './ConfigModal.vue';
+import './VersionsModal.vue';
 
-export default Vue.component('jirahub-title', {
+export default Vue.component('versions-title', {
+
+    props: {
+        versions: {
+            type: Array,
+            required: true,
+        },
+    },
 
     methods: {
         openModal() {
-            this.$refs.configModal.open();
+            this.$refs.versionsModal.open();
         },
     },
 
 });
-
 </script>
