@@ -4,13 +4,11 @@
         <button
             type="button"
             class="discussion-sidebar-heading discussion-sidebar-toggle"
-            @click="openModal">
+            @click="onClick">
             <icon-gear class="octicon" />
             Versions
         </button>
-        <versions-modal
-            ref="versionsModal"
-            :applied-versions="versions" />
+        <slot />
     </div>
 
 </template>
@@ -28,11 +26,9 @@ export default Vue.component('versions-title', {
             type: Array,
             required: true,
         },
-    },
-
-    methods: {
-        openModal() {
-            this.$refs.versionsModal.open();
+        onClick: {
+            type: Function,
+            default: () => {},
         },
     },
 

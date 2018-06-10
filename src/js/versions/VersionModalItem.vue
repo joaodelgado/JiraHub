@@ -63,7 +63,6 @@ export default Vue.component('version-modal-item', {
                 .then(
                     () => {
                         EventBus.$emit(GlobalEvents.CHANGED_VERSIONS);
-                        this.$refs.modal.close();
                     },
                     () => {
                         this.error = 'Error removing version';
@@ -77,7 +76,6 @@ export default Vue.component('version-modal-item', {
                 .then(
                     () => {
                         EventBus.$emit(GlobalEvents.CHANGED_VERSIONS);
-                        this.$refs.modal.close();
                     },
                     () => {
                         this.error = 'Error removing version';

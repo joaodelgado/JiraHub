@@ -25,7 +25,7 @@
         <div v-else>
             <div
                 v-for="version in appliedVersions"
-                :key="version.id">
+                :key="'applied-' + version.id">
 
                 <version-modal-item
                     :version-id="version.id"
@@ -35,12 +35,12 @@
             </div>
             <div
                 v-for="version in filteredAvailableVersions.slice(0, 5)"
-                :key="version.id">
+                :key="'available-' + version.id">
 
                 <version-modal-item
                     :version-id="version.id"
                     :name="version.name"
-                    :applied="version.applied" />
+                    :applied="false" />
 
             </div>
         </div>
@@ -82,7 +82,9 @@ export default Vue.component('versions-modal', {
                 return this.availableVersions
                     .filter(version => !version.applied)
                     .filter(version => version.name.toLowerCase()
-                        .startsWith(this.filter.toLowerCase()));
+                        .startsWith(this.filter.toLowerCase()))
+                    .filter(version => !this.appliedVersions
+                        .some(appliedVersion => appliedVersion.id === version.id));
             },
 
             default: undefined,
@@ -99,17 +101,7 @@ export default Vue.component('versions-modal', {
 
                             return data
                                 .filter(version => !version.archived)
-                                .filter(version => !version.released)
-                                .map((version) => {
-                                    if (this.appliedVersions.some(appliedVersion =>
-                                        appliedVersion.id === version.id)) {
-                                        /* eslint-disable no-param-reassign  */
-                                        version.applied = true;
-                                        /* eslint-enable no-param-reassign  */
-                                    }
-
-                                    return version;
-                                });
+                                .filter(version => !version.released);
                         },
                         () => {
                             this.error = 'Error loading versions';
@@ -126,6 +118,10 @@ export default Vue.component('versions-modal', {
         open() {
             this.$refs.modal.open();
             Vue.nextTick(() => this.focus());
+        },
+
+        close() {
+            this.$refs.modal.close();
         },
 
         focus() {

@@ -6,6 +6,7 @@
 
         <jirahub-title />
         <ticket />
+        <versions v-if="validConfig" />
 
     </div>
 
@@ -17,8 +18,22 @@ import Vue from 'vue';
 
 import './JiraHubTitle.vue';
 import './ticket/Ticket.vue';
+import './versions/Versions.vue';
+
+import { validConfig } from './Utils';
 
 export default Vue.component('jirahub', {
+
+    data() {
+        return {
+            validConfig: false,
+        };
+    },
+
+    created() {
+        this.validConfig = validConfig(this.store);
+    },
+
 });
 </script>
 

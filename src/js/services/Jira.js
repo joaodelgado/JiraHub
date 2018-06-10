@@ -3,7 +3,7 @@ import Vue from 'vue';
 import Config from '../Config';
 
 export default class Jira {
-    fetchTicket(store, ticketId) {
+    fetchStatus(store, ticketId) {
         const config = {
             headers: {
                 Authorization: `Basic ${btoa(`${store.username}:${store.password}`)})`,
@@ -11,7 +11,20 @@ export default class Jira {
         };
 
         return Vue.http.get(
-            `${store.url}${Config.JIRA_API_BASE}/issue/${ticketId}?fields=status,fixVersions,${Config.JIRA_REVIWER_KEY}`,
+            `${store.url}${Config.JIRA_API_BASE}/issue/${ticketId}?fields=status,${Config.JIRA_REVIWER_KEY}`,
+            config
+        );
+    }
+
+    fetchVersions(store, ticketId) {
+        const config = {
+            headers: {
+                Authorization: `Basic ${btoa(`${store.username}:${store.password}`)})`,
+            },
+        };
+
+        return Vue.http.get(
+            `${store.url}${Config.JIRA_API_BASE}/issue/${ticketId}?fields=fixVersions`,
             config
         );
     }
