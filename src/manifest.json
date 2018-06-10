@@ -13,16 +13,7 @@
         "https://github.com/*"
       ],
       "js": [
-        "third_party/jquery-3.2.1.min.js",
-        "third_party/arrive.min.js",
-        "config.js",
-        "transition.js",
-        "stored_item.js",
-        "store.js",
-        "ticket.js",
-        "github.js",
-        "jira.js",
-        "client.js"
+        "client.bundle.js"
       ]
     }
   ],
