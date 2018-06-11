@@ -32,14 +32,22 @@ Vue.mixin({
 const BASE_ELEMENT_ID = 'jirahub-wrapper';
 
 function init() {
-    // Create base element
-    if (!document.getElementById(BASE_ELEMENT_ID)) {
-        const jiraWrapperBase = document.querySelector('.sidebar-labels');
-        const jiraWrapper = document.createElement('div');
-        jiraWrapper.id = BASE_ELEMENT_ID;
-        jiraWrapper.classList.add('discussion-sidebar-item');
-        jiraWrapperBase.after(jiraWrapper);
+    // If there our vue component already exists
+    if (document.getElementsByClassName('jirahub-end').length > 0) {
+        return;
     }
+
+    // Create base element
+    const jiraWrapperBase = document.querySelector('.sidebar-labels');
+
+    if (!jiraWrapperBase) {
+        return;
+    }
+
+    const jiraWrapper = document.createElement('div');
+    jiraWrapper.id = BASE_ELEMENT_ID;
+    jiraWrapper.classList.add('discussion-sidebar-item');
+    jiraWrapperBase.after(jiraWrapper);
 
     /* eslint-disable no-new */
     new Vue({
