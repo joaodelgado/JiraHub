@@ -6,7 +6,7 @@ export default class Jira {
     fetchStatus(store, ticketId) {
         const config = {
             headers: {
-                Authorization: `Basic ${btoa(`${store.username}:${store.password}`)})`,
+                Authorization: `Basic ${btoa(`${store.username}:${store.password}`)}`,
             },
         };
 
@@ -19,7 +19,7 @@ export default class Jira {
     fetchVersions(store, ticketId) {
         const config = {
             headers: {
-                Authorization: `Basic ${btoa(`${store.username}:${store.password}`)})`,
+                Authorization: `Basic ${btoa(`${store.username}:${store.password}`)}`,
             },
         };
 
@@ -32,7 +32,7 @@ export default class Jira {
     fetchTransitions(store, ticketId) {
         const config = {
             headers: {
-                Authorization: `Basic ${btoa(`${store.username}:${store.password}`)})`,
+                Authorization: `Basic ${btoa(`${store.username}:${store.password}`)}`,
             },
         };
 
@@ -60,7 +60,7 @@ export default class Jira {
 
         const config = {
             headers: {
-                Authorization: `Basic ${btoa(`${store.username}:${store.password}`)})`,
+                Authorization: `Basic ${btoa(`${store.username}:${store.password}`)}`,
                 'Content-Type': 'application/json; charset=utf-8',
             },
         };
@@ -75,7 +75,7 @@ export default class Jira {
     getVersions(store, project) {
         const config = {
             headers: {
-                Authorization: `Basic ${btoa(`${store.username}:${store.password}`)})`,
+                Authorization: `Basic ${btoa(`${store.username}:${store.password}`)}`,
             },
         };
 
@@ -88,7 +88,7 @@ export default class Jira {
     addVersion(store, ticketId, versionId) {
         const config = {
             headers: {
-                Authorization: `Basic ${btoa(`${store.username}:${store.password}`)})`,
+                Authorization: `Basic ${btoa(`${store.username}:${store.password}`)}`,
             },
         };
 
@@ -114,7 +114,7 @@ export default class Jira {
     removeVersion(store, ticketId, versionId) {
         const config = {
             headers: {
-                Authorization: `Basic ${btoa(`${store.username}:${store.password}`)})`,
+                Authorization: `Basic ${btoa(`${store.username}:${store.password}`)}`,
             },
         };
 
