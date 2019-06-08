@@ -5,7 +5,7 @@
             :style="{ display: isOpen ? 'block' : 'none' }"
             class="jirahub-modal select-menu-modal-holder">
 
-            <div class="select-menu-modal">
+            <div class="select-menu-modal position-absolute right-0">
 
                 <!-- Header -->
                 <div class="select-menu-header" >
@@ -74,8 +74,7 @@ export default Vue.component('modal', {
 }
 
 .jirahub-modal {
-    right: -1px;
-    left: auto;
+    position: relative;
 }
 
 </style>

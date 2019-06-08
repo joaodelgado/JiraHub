@@ -19,6 +19,7 @@
 <script>
 import Vue from 'vue';
 
+import './VersionsWithError.vue';
 import './VersionsTitle.vue';
 import './VersionsList.vue';
 
