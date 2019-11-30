@@ -11,11 +11,11 @@ This project uses [yarn](https://yarnpkg.com/en/) to manage dependencies and [We
 
 To install all dependencies run:
 
-    yarn install
+    npm install
 
 To build the extension run:
 
-    webpack --progress --watch
+    npm build # or npm watch to watch for changes
 
 Then add the `build/manifest.json` as a unpacked extension.
 

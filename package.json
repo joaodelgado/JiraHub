@@ -9,7 +9,8 @@
   "author": "João Delgado",
   "license": "MIT",
   "scripts": {
-    "build": "node ./utils/build.js",
+    "build": "webpack",
+    "watch": "webpack --progress --watch",
     "lint": "eslint src"
   },
   "devDependencies": {
