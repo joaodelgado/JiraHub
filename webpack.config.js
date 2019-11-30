@@ -51,7 +51,7 @@ const options = {
             },
         ],
     },
-    devtool: 'source-map',
+    devtool: '#source-map',
 };
 
 module.exports = options;

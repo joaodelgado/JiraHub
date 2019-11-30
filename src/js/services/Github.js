@@ -3,10 +3,16 @@ import Config from '../Config';
 
 export default class GitHub {
     ticket() {
-        const match = this.title().match(Config.GITHUB_TITLE_REGEX);
+        const titleMatch = this.title().match(Config.GITHUB_TITLE_REGEX);
 
-        if (match) {
-            return match[1];
+        if (titleMatch) {
+            return titleMatch[1].replace(' ', '-').toUpperCase();
+        }
+
+        const branchMatch = this.branch().match(Config.GITHUB_TITLE_REGEX);
+
+        if (branchMatch) {
+            return branchMatch[1].replace(' ', '-').toUpperCase();
         }
 
         return null;
@@ -28,6 +34,14 @@ export default class GitHub {
 
     titleSelector() {
         return '.js-issue-title';
+    }
+
+    branch() {
+        return document.querySelector(this.branchSelector()).textContent.trim();
+    }
+
+    branchSelector() {
+        return '.head-ref';
     }
 
     isPullRequest() {
