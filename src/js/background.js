@@ -1,17 +1,35 @@
 /* globals  chrome */
+function updateHeader(headers, name, value) {
+    let i;
+    let l;
+    for (i = 0, l = headers.length; i < l; ++i) {
+        if (headers[i].name === name) {
+            break;
+        }
+    }
+    if (i < headers.length) {
+        headers[i].value = value;
+        return true;
+    }
+
+    return false;
+}
+
+
+function upsertHeader(headers, name, value) {
+    if (!updateHeader(headers, name, value)) {
+        headers.push({
+            name: name,
+            value: value,
+        });
+    }
+}
+
+
 chrome.webRequest.onBeforeSendHeaders.addListener(
     (details) => {
         const headers = details.requestHeaders;
-        let i;
-        let l;
-        for (i = 0, l = headers.length; i < l; ++i) {
-            if (headers[i].name === 'User-Agent') {
-                break;
-            }
-        }
-        if (i < headers.length) {
-            headers[i].value = 'JiraHub';
-        }
+        updateHeader(headers, 'User-Agent', 'JiraHub');
         return { requestHeaders: headers };
     }, {
         urls: ['https://jira.jumia.com/rest/api/*'],
@@ -22,23 +40,8 @@ chrome.webRequest.onBeforeSendHeaders.addListener(
 chrome.webRequest.onHeadersReceived.addListener(
     (details) => {
         const headers = details.responseHeaders;
-        let i = 0;
-        for (i = 0; i < headers.length; ++i) {
-            if (headers[i].name === 'User-Agent') {
-                break;
-            }
-        }
-        if (i < headers.length) {
-            headers[i] = {
-                name: 'Access-Control-Allow-Origin',
-                value: '*',
-            };
-        } else {
-            headers.push({
-                name: 'Access-Control-Allow-Origin',
-                value: '*',
-            });
-        }
+        upsertHeader(headers, 'Access-Control-Allow-Origin', '*');
+        upsertHeader(headers, 'Access-Control-Allow-Headers', '*');
         return { responseHeaders: headers };
     }, {
         urls: ['https://jira.jumia.com/rest/api/*'],
