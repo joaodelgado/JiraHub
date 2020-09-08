@@ -42,6 +42,7 @@ chrome.webRequest.onHeadersReceived.addListener(
         const headers = details.responseHeaders;
         upsertHeader(headers, 'Access-Control-Allow-Origin', '*');
         upsertHeader(headers, 'Access-Control-Allow-Headers', '*');
+        upsertHeader(headers, 'Access-Control-Allow-Methods', '*');
         return { responseHeaders: headers };
     }, {
         urls: ['https://jira.jumia.com/rest/api/*'],

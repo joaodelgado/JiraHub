@@ -13,7 +13,7 @@ To install all dependencies run:
 
 To build the extension run:
 
-    npm build # or npm watch to watch for changes
+    npm run build # or npm watch to watch for changes
 
 Then add the `build/manifest.json` as a unpacked extension.
 
